@@ -2,6 +2,9 @@ var app = angular.module('keepTrack', ['ngRoute']);
 
 app.config(function ($routeProvider) {
     $routeProvider
+    .when('/home', {
+        templateUrl: 'app/views/homeTmpl.html'
+    })
     .when('/roster', {
         templateUrl: 'app/views/rosterTmpl.html',
         controller: 'rosterCtrl',
@@ -34,6 +37,9 @@ app.config(function ($routeProvider) {
                 return scheduleService.getMeets()
             }
         }
+    })
+    .when('/contact', {
+        templateUrl: 'app/views/contactTmpl.html'
     })
     .otherwise('/roster');
 });

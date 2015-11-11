@@ -9,6 +9,7 @@ html {
 img {
     height: 120px;
     width: 120px;
+    cursor: none;
 }
 
 #navbar {
@@ -152,4 +153,42 @@ table, th, td {
     right: 250px;
     padding: 5px;
     border: 2px solid #07AEE6;
+}
+
+#contact_form {
+    margin-top: 15%;
+    text-align: center;
+}
+
+.contact_us {
+    position: absolute;
+    height: 40%;
+    width: 30%;
+    top: 30%;
+    left: 35%;
+    border: 2px solid #07AEE6;
+}
+
+.logout {
+    font-size: 12px;
+    position: fixed;
+    top: 120px;
+    right: 80px;
+}
+
+.home_logo {
+    position: fixed;
+    left: 40%;
+    top: 15%;
+    height: 40%;
+    width: 20%;
+}
+
+.login_button {
+    position: fixed;
+    height: 5%;
+    width: 5%;
+    top: 6%;
+    right: 6%;
+    font-size: 16px;
 }
