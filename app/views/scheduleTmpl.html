@@ -1,0 +1,74 @@
+<navbar></navbar><br>
+
+    <div class="schedule_table">
+<!--SORT SCHEDULE VIEW BY TEAM-->
+        <label class="schedule_filter">Team: <input type="radio" class="radio" ng-model="filterTeamSchedule" value="Boys"/>Boys <input type="radio" class="radio" ng-model="filterTeamSchedule" value="Girls"/>Girls    <input type="radio" class="radio" ng-model="filterTeamSchedule" value=""/>Both</label> 
+        
+<!--SCHEDULE-->
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Team</th>
+                <th>Meet Type</th>
+                <th>Meet Name</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Score</th>
+                <th>Result</th>
+            </tr>
+            <tr ng-repeat="meet in meets | orderBy: ['-date', 'team', '-name'] | filter:filterTeamSchedule" ng-click="selectMeet(meet)">
+                <td>{{meet.date | date: 'EEE, M/d/yy'}}</td>
+                <td>{{meet.team}}</td>
+                <td>{{meet.type}}</td>
+                <td>{{meet.name}}</td>
+                <td>{{meet.time}}</td>
+                <td>{{meet.location}}</td>
+                <td>{{meet.teamResults.score}}</td>
+                <td>{{meet.teamResults.result}}</td>
+            </tr>
+        </table>
+        <br><br>
+    </div>
+
+<!--ADD MEET-->
+    <form class="add_meet_form" ng-hide="select_meet" ng-submit="addMeet(meet)" onsubmit="this.submit(); this.reset(); return false;">
+        Date: <input type="date" ng-model="meet.date" placeholder="1/1/2015"/>
+            <br><br>
+        Team: <input type="radio" class="radio" ng-model="meet.team" value="Boys"/>Boys <input type="radio" class="radio" ng-model="meet.team" value="Girls" />Girls
+            <br><br>
+        Type: <input type="radio" class="radio" value="Dual" ng-model="meet.type"/>Dual <input type="radio" class="radio" value="Invitational" ng-model="meet.type"/>Invitational
+            <br><br>
+        Meet Name: <input type="text" ng-model="meet.name" placeholder="state championship"/>
+            <br><br>
+        Time: <input type="text" ng-model="meet.time" placeholder="3:30 PM"/>
+            <br><br>
+        Location: <input type="text" ng-model="meet.location" placeholder="university of oregon"/>
+            <br><br>
+        Score: <input type="text" ng-model="meet.teamResults.score" placeholder="53-38 / 25 pts"/>
+            <br><br>
+        Result: <input type="text" ng-model="meet.teamResults.result" placeholder="W / 4th"/>
+            <br><br>
+        <input type="submit" value="submit"/>
+    </form>
+
+<!--UPDATE/DELETE MEET-->
+    <div class="add_meet_form" ng-show="select_meet">
+        Date: <input type="date" ng-model="selectedMeet.date"/>
+            <br><br>
+        Team: <input type="radio" class="radio" ng-model="selectedMeet.team" value="Boys"/>Boys <input type="radio" class="radio" ng-model="selectedMeet.team" value="Girls" />Girls
+            <br><br>
+        Type: <input type="radio" class="radio" value="Dual" ng-model="selectedMeet.type"/>Dual <input type="radio" class="radio" value="Invitational" ng-model="selectedMeet.type"/>Invitational
+            <br><br>
+        Meet Name: <input type="text" ng-model="selectedMeet.name" placeholder="state championship"/>
+            <br><br>
+        Time: <input type="text" ng-model="selectedMeet.time" placeholder="3:30 PM"/>
+            <br><br>
+        Location: <input type="text" ng-model="selectedMeet.location" placeholder="university of oregon"/>
+            <br><br>
+        Score: <input type="text" ng-model="selectedMeet.teamResults.score" placeholder="53-38 / 25 pts"/>
+            <br><br>
+        Result: <input type="text" ng-model="selectedMeet.teamResults.result" placeholder="W / 4th"/>
+            <br><br>
+        <button ng-click="updateMeet(selectedMeet)">update</button> <button ng-click='deleteMeet(selectedMeet._id)'>delete</button>
+    </div>
+

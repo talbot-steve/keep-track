@@ -1,0 +1,72 @@
+<navbar></navbar>
+<br>
+
+<!--FILTER RESULTS-->
+<div class="stats_page">
+    <div class="stats_page_content">
+        <input type="radio" class="radio" ng-model="filterTeamRoster" value="Boy"/>Boys <input type="radio" class="radio" ng-model="filterTeamRoster" value="Girl"/>Girls<br><br>
+        <div class="roster_list" ng-repeat="athlete in athletes | orderBy: ['lastName', 'firstName'] | filter: filterTeamRoster">
+            <div ng-click="selectAthlete(athlete)">
+                {{athlete.lastName}}, {{athlete.firstName}}
+            </div>
+        </div>
+        
+<!--VIEW RESULTS-->
+        <div class="athlete_results" ng-show="showme">
+            <h1 class="stats_athlete_name">{{selectedAthlete.firstName}} {{selectedAthlete.lastName}}</h1>
+            <div ng-repeat="result in athleteResults | orderBy: ['-date', 'event', 'result']">
+                <u>{{result.date | date:'shortDate'}} - {{result.meet}}</u><br>
+                {{result.event}} - {{result.result}}<br><br>
+            </div>
+            <button ng-click="add_results = !add_results">add results</button><br><br>
+        </div>
+        
+<!--ADD RESULTS-->
+        <div class="add_athlete_results" ng-show="add_results">
+            <form ng-submit="addResult(selectedAthlete)" onsubmit="this.submit(); this.reset(); return false;">
+                Date: <input type="date" ng-model="newResult.date"/>
+                    <br><br>
+                Meet: <input type="text" ng-model="newResult.meet" placeholder="state championship"/>
+                    <br><br>
+                Event: <select ng-model="newResult.event">
+                        <optgroup label="- Hurdles -">
+                            <option>55H
+                            <option>100HH
+                            <option>110HH
+                            <option>400H
+                        </optgroup>
+                        <optgroup label="- Sprints -">
+                            <option>55m
+                            <option>100m
+                            <option>200m
+                            <option>300m
+                            <option>400m
+                            <option>600m
+                        </optgroup>
+                        <optgroup label="- Distance -">
+                            <option>800m
+                            <option>1000m
+                            <option>mile
+                            <option>2 mile
+                        </optgroup>
+                        <optgroup label="- Jumps -">
+                            <option>long jump
+                            <option>high jump
+                            <option>triple jump
+                            <option>pole vault
+                        </optgroup>
+                        <optgroup label="- Throws -">
+                            <option>shot put
+                            <option>javelin
+                            <option>discus
+                        </optgroup>
+                </select><br><br>
+                Result: <input type="text" size="7" ng-model="newResult.result" placeholder="9:20.85"/><br><br>
+                Place: <input type="text" size="3" ng-model="newResult.place"/><br><br>
+                Points: <input type="number" min="1" max="10" ng-model="newResult.points"/><br><br>
+                <input type="submit" value="submit"/>
+            </form>
+        </div>
+        
+    </div>
+</div>

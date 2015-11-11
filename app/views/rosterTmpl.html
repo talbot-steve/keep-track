@@ -1,0 +1,158 @@
+<navbar></navbar>
+<br>
+
+<div class="rosterPage">
+    
+<!--VIEW/REMOVE ATHLETES FROM ROSTER-->
+        <input type="radio" class="radio" ng-model="filterTeamRoster" value=""/>Both <input type="radio" class="radio" ng-model="filterTeamRoster" value="Boy"/>Boys <input type="radio" class="radio" ng-model="filterTeamRoster" value="Girl"/>Girls<br><br>
+        <div class="roster_list" ng-repeat="athlete in athletes | orderBy: ['lastName', 'firstName'] | filter: filterTeamRoster" ng-class="{injured_athlete: athlete.injured}">
+            <div ng-click="selectAthlete(athlete)">
+                {{athlete.lastName}}, {{athlete.firstName}}
+                <button ng-click='deleteAthlete(athlete._id)' ng-show = "active_firstName === athlete.firstName && active_lastName === athlete.lastName">remove</button>
+            </div>
+        </div>
+        
+<!--ADD ATHLETES TO ROSTER/ATHLETE INFO/EMERGENCY CONTACT INFO-->
+        <button ng-click="showthis = !showthis">add athlete</button>
+<br><br>
+<form ng-show="showthis" ng-submit="addAthlete(athlete)" onsubmit="this.submit(); this.reset(); return false;">
+    Name: <input type="text" ng-model="athlete.firstName" placeholder="first name"/>     <input type="text" ng-model="athlete.lastName" placeholder="last name"/><br><br>
+    Gender: <input type="radio" class="radio" ng-model="athlete.gender" value="Boy"/>Male   <input type="radio" class="radio" ng-model="athlete.gender" value="Girl"/>Female <br><br>
+    Class of: <input type="text" maxlength="4" size="4" ng-model="athlete.gradClass"/>
+        <br><br>
+    Email: <input type="email" ng-model="athlete.email"/>
+        <br><br>
+    Phone Number: <input type="text" ng-model="athlete.phone" placeholder="xxx-xxx-xxxx"/>
+        <br><br>
+    Address: <input type="text" ng-model="athlete.address.street" placeholder="street address"/>
+        <br><br>
+            <input type="text" ng-model="athlete.address.city" placeholder="city"/>, <input type="text" maxlength="2" size="4" ng-model="athlete.address.state" placeholder="state"/>
+            <input type="text" maxlength="5" size="7" ng-model="athlete.address.zipCode" placeholder="zip code"/>
+        <br><br>
+    <u>Emergency Contact</u><br><br>
+    Name: <input type="text" ng-model="athlete.emergency.contactName"/><br><br>
+    Phone Number: <input type="text" ng-model="athlete.emergency.phone"/><br><br>
+    Email: <input type="email" ng-model="athlete.emergency.email"/><br><br>
+    <input type="submit" value="submit" ng-click="showthis=false"/>
+</form>
+            
+
+    <div class="athlete_info" ng-show="showme">
+                
+        <span class="athlete_info_tab" ng-click="showInfo()">information</span>
+        <span class="athlete_info_tab" ng-click="showSeason()">season</span>
+        <span id="emergency_info_tab" class="athlete_info_tab" ng-click="showEmergency()">emergency</span>
+        <h1 class="roster_athlete_name">{{selectedAthlete.firstName}} {{selectedAthlete.lastName}}</h1>
+        <h4 class="roster_athlete_class">Class of {{selectedAthlete.gradClass}}</h4>
+        
+<!--VIEW ATHLETE INFORMATION-->
+        <div ng-show="show_info">
+            <div>{{selectedAthlete.email}}</div>
+            <div>{{selectedAthlete.phone}}</div>
+            <div>{{selectedAthlete.address.street}}<br>
+                {{selectedAthlete.address.city}}, 
+                {{selectedAthlete.address.state}} 
+                {{selectedAthlete.address.zipCode}}
+            </div>
+            <br>
+            
+<!--EDIT ATHLETE INFORMATION-->
+                <button ng-click="selectedAthlete.edit = !selectedAthlete.edit">update</button>
+                        <div ng-show="selectedAthlete.edit">
+                            <br>
+                            <input ng-model="selectedAthlete.firstName"/>   <input ng-model="selectedAthlete.lastName"/><br><br>
+                            <input type="radio" class="radio" ng-model="selectedAthlete.gender" value="Boy"/>Male   
+                            <input type="radio" class="radio" ng-model="selectedAthlete.gender" value="Girl"/>Female <br><br>
+                            <input maxlength="4" size="4" ng-model="selectedAthlete.gradClass"/><br><br>
+                            <input ng-model="selectedAthlete.email"/><br><br>
+                            <input ng-model="selectedAthlete.phone"/><br><br>
+                            <input ng-model="selectedAthlete.address.street"/><br><br>
+                            <input ng-model="selectedAthlete.address.city"/> <input maxlength="2" size="2" ng-model="selectedAthlete.address.state"/> <input maxlength="5" size="5" ng-model="selectedAthlete.address.zipCode"/><br><br>
+                            <button ng-click="updateAthlete(selectedAthlete)">submit</button>
+                        </div>
+            </div>
+        
+<!--VIEW EMERGENCY CONTACT INFORMATION-->
+        <div ng-show="show_emergency">
+            <div>{{selectedAthlete.emergency.contactName}}</div>
+            <div>{{selectedAthlete.emergency.phone}}</div>
+            <div>{{selectedAthlete.emergency.email}}</div><br>
+           
+<!--EDIT EMERGENCY CONTACT INFORMATION-->
+            <button ng-click="selectedAthlete.edit = !selectedAthlete.edit">update</button>
+                        <div ng-show="selectedAthlete.edit">
+                            <br>
+                                <input ng-model="selectedAthlete.emergency.contactName"/><br><br>
+                                <input ng-model="selectedAthlete.emergency.phone"/><br><br>
+                                <input ng-model="selectedAthlete.emergency.email"/><br><br>
+                            <button ng-click="updateContact(selectedAthlete)">submit</button>
+                        </div>
+        </div>
+
+<!--VIEW SEASON INFORMATION-->
+        <div>
+            <span class="season_info_span" ng-click="showInjuries()" ng-show="show_season_info">injuries</span>
+            <span class="season_info_span" ng-click="showExpectations()" ng-show="show_season_info">expectations</span>
+            <span class="season_info_span" ng-click="showAttendance()" ng-show="show_season_info">attendance</span>
+              
+<!--VIEW/ADD/CLEAR INJURIES-->
+                <div ng-show="show_injuries"><br>
+                    <div ng-repeat="injury in athleteInjuries" ng-class="myInjury">
+                        <u>{{injury.report.date | date:'EEE, M/d/yy'}}</u>
+                        <br> 
+                        {{injury.bodyPart}} - {{injury.severity}} Severity
+                        <br>
+                        {{injury.report.notes}}
+                        <br><br>
+                    </div>
+                    <button ng-click="add_new_injury = !add_new_injury">add injury</button> <button ng-if="selectedAthlete.injured == true" ng-click="clearInjury(selectedAthlete)">recovered</button><br><br>
+                    <form ng-show="add_new_injury" ng-submit="addInjury(selectedAthlete)" onsubmit="this.submit(); this.reset(); return false;">
+                        Body Part: <input type="text" ng-model="newInjury.bodyPart"/><br><br>
+                        Severity: <input type="text" ng-model="newInjury.severity"/><br><br>
+                        Date: <input type="date" ng-model="newInjury.report.date"/><br><br>
+                        Notes: <input type="text" ng-model="newInjury.report.notes"/><br><br>
+                        <input type="submit" value="submit" ng-click="add_new_injury=false"/>
+                    </form>
+                </div>
+            
+<!--VIEW/ADD EXPECTATIONS-->
+                <div ng-show="show_expectations"><br>
+                    <div ng-repeat="expectation in athleteExpectations">
+                        - {{expectation.expectation}}
+                    </div>
+                    <br>
+                    <button ng-click="add_new_expectation = !add_new_expectation">add expectation</button><br><br>
+                    <form ng-show="add_new_expectation" ng-submit="addExpectation(selectedAthlete)" onsubmit="this.submit(); this.reset(); return false;">
+                        <input type="text" ng-model="newExpectation.expectation"/>
+                        <input type="submit" value="submit" ng-click="add_new_expectation=false"/>
+                    </form>
+                </div>
+            
+<!--VIEW/ADD ATTENDANCE-->
+                <div ng-show="show_attendance"><br>
+                    <div ng-repeat="attendance in athleteAttendance">
+                        - {{attendance.date | date:'EEE, M/d/yy'}}  ({{attendance.reason}})
+                    </div><br>
+                    <button ng-click="add_new_attendance = !add_new_attendance">add absence</button><br><br>
+                    <form ng-show="add_new_attendance" ng-submit="addAttendance(selectedAthlete)" onsubmit="this.submit(); this.reset(); return false;">
+                        Date: <input type="date" ng-model="newAttendance.date"/><br><br>
+                        Reason: <select ng-model="newAttendance.reason">
+                            <option>unexcused</option>
+                            <option>sick</option>
+                            <option>injured</option>
+                            <option>appointment</option>
+                            <option>extra help</option>
+                            <option>extracurricular</option>
+                            <option>vacation</option>
+                        </select><br><br>
+                        <input type="submit" value="submit" ng-click="add_new_attendance=false">
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+
