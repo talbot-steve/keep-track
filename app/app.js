@@ -3,7 +3,11 @@ var app = angular.module('keepTrack', ['ngRoute']);
 app.config(function ($routeProvider) {
     $routeProvider
     .when('/home', {
-        templateUrl: 'app/views/homeTmpl.html'
+        templateUrl: 'app/views/homeTmpl.html',
+        controller: 'homeCtrl'
+    })
+    .when('/login', {
+        templateUrl: 'app/views/loginTmpl.html'
     })
     .when('/roster', {
         templateUrl: 'app/views/rosterTmpl.html',
@@ -41,5 +45,5 @@ app.config(function ($routeProvider) {
     .when('/contact', {
         templateUrl: 'app/views/contactTmpl.html'
     })
-    .otherwise('/roster');
+    .otherwise('/home');
 });

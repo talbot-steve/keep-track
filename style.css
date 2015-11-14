@@ -193,6 +193,10 @@ table, th, td {
     font-size: 16px;
 }
 
+.login_button > a {
+    color: black;
+}
+
 .home_info_box {
     display: inline-block;
     position: fixed;
