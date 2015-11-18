@@ -1,22 +1,33 @@
 var Athlete = require('../models/athletesModel');
+var User = require('../models/UserModel');
 
 module.exports = {
     get: function(req, res) {
-        Athlete.find({}, function(err, data) {
+        console.log(23232323, req.user)
+        User.find({_id: req.user._id})
+        .populate('athletes')
+        .exec(function(err, data){
             if (err) {
-                res.send(err)
+                res.status(500).send(err)
             } else {
-                res.send(data);
+                res.send(data)
             }
         })
     },
 
     create: function(req, res) {
-        Athlete.create(req.body, function(err, data) {
+        Athlete.create(req.body, function(err, athlete) {
             if (err) {
                 res.send(err)
             } else {
-                res.send(data)
+                User.findById(req.user._id, function(err, user) {
+                    user.athletes.push(athlete._id)
+//                    .save()
+                    .populate('athletes')
+                    .exec(function(err, data) {
+                        res.send(data)
+                    })
+                })
             }
         })
     },

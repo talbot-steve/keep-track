@@ -1,6 +1,6 @@
-angular.module('keepTrack').controller('rosterCtrl', function ($scope, rosterService, athletes) {
-    
-    $scope.athletes = athletes.data;
+angular.module('keepTrack').controller('rosterCtrl', function ($scope, rosterService, user) {
+    $scope.user = user.data[0];
+    $scope.athletes = $scope.user.athletes;
     
     $scope.selectAthlete = function(athlete){
         $scope.selectedAthlete = athlete;

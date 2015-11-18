@@ -3,13 +3,12 @@ html {
     color: #07AEE6;
     font-family: "Arial";
     font-size: 14px;
-    cursor: pointer;
 }
 
 img {
     height: 10%;
     width: 10%;
-    cursor: none;
+    cursor: default;
 }
 
 #navbar {
@@ -38,6 +37,7 @@ span {
 
 .roster_list {
     margin-bottom: 0.7%;
+    cursor: pointer;
 }
 
 .stats_athlete_name {
@@ -49,22 +49,25 @@ span {
     margin-top: 0.5%;
     height: 2%;
     width: 2%;
+    cursor: pointer;
 }
 
 button {
     background: #07AEE6;
     border-radius: 4px;
     border: none;
+    cursor: pointer;
 }
 
 .athlete_info {
     position: fixed;
-    top: 30%;
+    top: 27%;
     left: 30%;
-    height: 65%;
+    height: 70%;
     width: 35%;
     border: 2px solid #07AEE6;
     padding: 2px;
+    cursor: pointer;
 }
 
 .athlete_info_tab {
@@ -109,6 +112,7 @@ table, th, td {
     left: 18%;
     height: 100%;
     width: 70%;
+    cursor: pointer;
 }
 
 .schedule_filter {
@@ -169,11 +173,8 @@ table, th, td {
     border: 2px solid #07AEE6;
 }
 
-.logout {
-    font-size: 12px;
-    position: fixed;
-    top: 15%;
-    right: 15%;
+.log_out {
+    float: right;
 }
 
 .home_logo {

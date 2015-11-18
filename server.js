@@ -1,20 +1,53 @@
 var mongoose = require('mongoose');
-var config = require('./config');
 var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-var passport = require('passport');
-
-var app = express();
-var port = 8787;
+var session = require('express-session');
+var config = require('./config');
 
 var athleteCtrl = require('./controllers/athleteCtrl');
 var meetCtrl = require('./controllers/meetCtrl');
 var resultCtrl = require('./controllers/resultCtrl');
+var UserCtrl = require('./controllers/UserCtrl');
+
+var passport = require('./services/passport');
+
+var isAuthed = function(req, res, next){
+	if(!req.isAuthenticated()) return res.sendStatus(401);
+	return next();
+};
+
+var app = express();
+var port = 8787;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/'));
+
+
+app.use(session({ secret: 'best secret ever' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//-----login
+app.post('/login', passport.authenticate('local'), function(req, res) {
+	console.log(12121212121, req.body);
+	res.json(req.user);
+});
+app.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/');
+});
+
+//-----endpoints for users
+app.get('/users', UserCtrl.findAll);
+app.get('/user', function(req, res){
+	res.json(req.user)
+});
+app.get('/sessionUser', UserCtrl.me);
+app.post('/users', UserCtrl.create);
+app.put('/users/:id', UserCtrl.update);
+app.delete('/users/:id', UserCtrl.delete);
 
 app.get('/athlete', athleteCtrl.get);
 app.post('/athlete', athleteCtrl.create);
@@ -32,6 +65,14 @@ app.put('/result/:id', resultCtrl.update);
 app.delete('/result', resultCtrl.remove);
 
 app.post('/stat/athlete_id/:athlete_id/result_id/:result_id', athleteCtrl.pushResultToUser);
+
+//get authorized user
+app.get('/user/auth', function(req, res) {
+    if (req.user) {
+        res.send(req.user)
+    }
+    res.end()
+})
 
 mongoose.connect(config.mongoURI);
 

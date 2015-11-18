@@ -7,13 +7,14 @@ app.config(function ($routeProvider) {
         controller: 'homeCtrl'
     })
     .when('/login', {
-        templateUrl: 'app/views/loginTmpl.html'
+        templateUrl: 'app/views/loginTmpl.html',
+        controller: 'loginCtrl'
     })
     .when('/roster', {
         templateUrl: 'app/views/rosterTmpl.html',
         controller: 'rosterCtrl',
         resolve: {
-            athletes: function(rosterService) {
+            user: function(rosterService) {
                 return rosterService.getAthletes()
             }
         }
