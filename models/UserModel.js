@@ -4,6 +4,10 @@ var bcrypt = require('bcryptjs');
 var userSchema = mongoose.Schema({
     email: {type: String, required: true},
     password: {type: String, required: true},
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true},
+    team: {type: String, required: true},
+    teamLocation: {type: String, required: true},
     athletes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'athlete' }],
     meets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'meet' }]
 });

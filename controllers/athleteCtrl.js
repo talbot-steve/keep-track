@@ -20,14 +20,22 @@ module.exports = {
             if (err) {
                 res.send(err)
             } else {
-                User.findById(req.user._id, function(err, user) {
-                    user.athletes.push(athlete._id)
-//                    .save()
-                    .populate('athletes')
-                    .exec(function(err, data) {
+                 User.findByIdAndUpdate({_id: req.user._id}, {$push: {athletes: athlete._id}}, {new: true}, function(err, user) {
+                    console.log(err, user)
+                    user
+                    .populate('athletes', function(err, data) {
+                        if (err) console.log('error', err)
                         res.send(data)
                     })
                 })
+//                User.findById(req.user._id, function(err, user) {
+//                    user.athletes.push(athlete._id)
+////                    .save()
+////                    .populate('athletes')
+//                    .exec(function(err, data) {
+//                        res.send(data)
+//                    })
+//                })
             }
         })
     },

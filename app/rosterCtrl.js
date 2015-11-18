@@ -106,16 +106,17 @@ angular.module('keepTrack').controller('rosterCtrl', function ($scope, rosterSer
         $scope.athleteAttendance = athlete.attendance;
     }
     
-    $scope.getAthlete = function() {
-        rosterService.getAthletes().then(function (response){
-            $scope.athletes = response.data;
-        })
-    }
+//    $scope.getAthlete = function() {
+//        rosterService.getAthletes().then(function (response){
+//            $scope.athletes = response.data;
+//        })
+//    }
     
     $scope.addAthlete = function(athlete) {
         var data = athlete;
         rosterService.addAthletes(data).then(function (response){
-            $scope.getAthlete();
+            $scope.user = response.data;
+            $scope.athletes = $scope.user.athletes;
         })
     }
     

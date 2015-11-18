@@ -1,7 +1,8 @@
-angular.module('keepTrack').controller('statCtrl', function ($scope, rosterService, scheduleService, athletes, meets) {
+angular.module('keepTrack').controller('statCtrl', function ($scope, rosterService, scheduleService, user) {
 
-    $scope.athletes = athletes.data;
-    $scope.meets = meets.data;
+    $scope.user = user.data[0];
+    $scope.athletes = $scope.user.athletes;
+    $scope.meets = $scope.user.meets;
     
     $scope.selectAthlete = function(athlete) {
         $scope.selectedAthlete = athlete;

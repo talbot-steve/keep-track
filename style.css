@@ -45,10 +45,7 @@ span {
 }
 
 .radio {
-    margin-left: 0.5%;
-    margin-top: 0.5%;
-    height: 2%;
-    width: 2%;
+    margin-right: 0.5%;
     cursor: pointer;
 }
 
@@ -104,6 +101,10 @@ table, th, td {
     border-collapse: collapse;
     padding: 3px;
     text-align: center;
+}
+
+table {
+    margin-top: 1%;
 }
 
 .schedule_table {

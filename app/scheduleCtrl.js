@@ -1,6 +1,6 @@
-angular.module('keepTrack').controller('scheduleCtrl', function ($scope, scheduleService, meets) {
-    
-    $scope.meets = meets.data;
+angular.module('keepTrack').controller('scheduleCtrl', function ($scope, scheduleService, user) {
+    $scope.user = user.data[0];
+    $scope.meets = $scope.user.meets;
     
     $scope.selectMeet = function (meet) {
         $scope.selectedMeet = meet;

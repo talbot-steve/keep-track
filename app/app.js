@@ -10,6 +10,10 @@ app.config(function ($routeProvider) {
         templateUrl: 'app/views/loginTmpl.html',
         controller: 'loginCtrl'
     })
+    .when('/register', {
+        templateUrl: 'app/views/registerTmpl.html',
+        controller: 'loginCtrl'
+    })
     .when('/roster', {
         templateUrl: 'app/views/rosterTmpl.html',
         controller: 'rosterCtrl',
@@ -38,7 +42,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'app/views/scheduleTmpl.html',
         controller: 'scheduleCtrl',
         resolve: {
-            meets: function(scheduleService) {
+            user: function(scheduleService) {
                 return scheduleService.getMeets()
             }
         }

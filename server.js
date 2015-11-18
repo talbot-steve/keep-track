@@ -29,10 +29,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //-----login
-app.post('/login', passport.authenticate('local'), function(req, res) {
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login'}), function(req, res) {
 	console.log(12121212121, req.body);
 	res.json(req.user);
 });
+
 app.get('/logout', function(req, res){
 	req.logout();
 	res.redirect('/');
@@ -74,7 +75,9 @@ app.get('/user/auth', function(req, res) {
 })
 
 var mongoURI = config.MONGO_URI;
-var port = config.PORT
+if (config.ENV == 'DEVELOPMENT') {
+    var port = 8787;
+}
 
 mongoose.connect(mongoURI);
 
