@@ -7,17 +7,18 @@ angular.module('keepTrack').controller('scheduleCtrl', function ($scope, schedul
         $scope.select_meet = true;
     }
     
-    $scope.getMeet = function () {
-        scheduleService.getMeets().then(function (response) {
-            $scope.meets = response.data;
-        });
-    };
+//    $scope.getMeet = function () {
+//        scheduleService.getMeets().then(function (response) {
+//            $scope.meets = response.data;
+//        });
+//    };
     
     $scope.addMeet = function (meet) {
         var data = meet;
-        scheduleService.addMeets(data).then(function (response) {
-            $scope.getMeet();
-        });
+        scheduleService.addMeets(data).then(function (response){
+            $scope.user = response.data;
+            $scope.meets = $scope.user.meets;
+        })
     };
     
     $scope.updateMeet = function (selectedMeet) {

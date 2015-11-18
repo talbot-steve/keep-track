@@ -20,11 +20,11 @@ module.exports = {
             if (err) {
                 res.send(err)
             } else {
-                User.findById(req.user._id, function(err, user) {
-                    user.meets.push(meet._id)
-//                    .save()
-                    .populate('meets')
-                    .exec(function(err, data) {
+                 User.findByIdAndUpdate({_id: req.user._id}, {$push: {meets: meet._id}}, {new: true}, function(err, user) {
+                    console.log(err, user)
+                    user
+                    .populate('meets', function(err, data) {
+                        if (err) console.log('error', err)
                         res.send(data)
                     })
                 })

@@ -77,6 +77,8 @@ app.get('/user/auth', function(req, res) {
 var mongoURI = config.MONGO_URI;
 if (config.ENV == 'DEVELOPMENT') {
     var port = 8787;
+} else {
+    var port = 80;
 }
 
 mongoose.connect(mongoURI);

@@ -28,14 +28,6 @@ module.exports = {
                         res.send(data)
                     })
                 })
-//                User.findById(req.user._id, function(err, user) {
-//                    user.athletes.push(athlete._id)
-////                    .save()
-////                    .populate('athletes')
-//                    .exec(function(err, data) {
-//                        res.send(data)
-//                    })
-//                })
             }
         })
     },
