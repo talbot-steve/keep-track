@@ -136,8 +136,7 @@ angular.module('keepTrack').controller('rosterCtrl', function ($scope, rosterSer
         var confirmDelete = confirm('Are you sure?');
         if (confirmDelete === true){
             rosterService.deleteAthletes(id).then(function (response){
-                $scope.showme = false;
-                $scope.getAthlete();
+                
             })
         }
     }

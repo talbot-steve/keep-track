@@ -4,7 +4,7 @@
 <div class="rosterPage">
     
 <!--VIEW/REMOVE ATHLETES FROM ROSTER-->
-        <input type="radio" class="radio" ng-model="filterTeamRoster" value=""/>Both <input type="radio" class="radio" ng-model="filterTeamRoster" value="Boy"/>Boys <input type="radio" class="radio" ng-model="filterTeamRoster" value="Girl"/>Girls<br><br>
+        <input type="radio" class="radio" ng-model="filterTeamRoster" value="Boy"/>Boys <input type="radio" class="radio" ng-model="filterTeamRoster" value="Girl"/>Girls <input type="radio" class="radio" ng-model="filterTeamRoster" value=""/>All<br><br>
         <div class="roster_list" ng-repeat="athlete in athletes | orderBy: ['lastName', 'firstName'] | filter: filterTeamRoster" ng-class="{injured_athlete: athlete.injured}">
             <div ng-click="selectAthlete(athlete)">
                 {{athlete.lastName}}, {{athlete.firstName}}
@@ -64,10 +64,10 @@
                             <input type="radio" class="radio" ng-model="selectedAthlete.gender" value="Boy"/>Male   
                             <input type="radio" class="radio" ng-model="selectedAthlete.gender" value="Girl"/>Female <br><br>
                             <input maxlength="4" size="4" ng-model="selectedAthlete.gradClass"/><br><br>
-                            <input ng-model="selectedAthlete.email"/><br><br>
-                            <input ng-model="selectedAthlete.phone"/><br><br>
-                            <input ng-model="selectedAthlete.address.street"/><br><br>
-                            <input ng-model="selectedAthlete.address.city"/> <input maxlength="2" size="2" ng-model="selectedAthlete.address.state"/> <input maxlength="5" size="5" ng-model="selectedAthlete.address.zipCode"/><br><br>
+                            <input ng-model="selectedAthlete.email" placeholder="email"/><br><br>
+                            <input ng-model="selectedAthlete.phone" placeholder="phone"/><br><br>
+                            <input ng-model="selectedAthlete.address.street" placeholder="address"/><br><br>
+                            <input ng-model="selectedAthlete.address.city" placeholder="city"/> <input maxlength="2" size="2" ng-model="selectedAthlete.address.state" placeholder="state"/> <input maxlength="5" size="5" ng-model="selectedAthlete.address.zipCode" placeholder="zip"/><br><br>
                             <button ng-click="updateAthlete(selectedAthlete)">submit</button>
                         </div>
             </div>
