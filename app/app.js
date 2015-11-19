@@ -27,13 +27,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'app/views/statsTmpl.html',
         controller: 'statCtrl',
         resolve: {
-            results: function(statService) {
-                return statService.getResults();
-            },
-            meets: function(scheduleService) {
-                return scheduleService.getMeets()
-            },
-            athletes: function(rosterService) {
+            user: function(rosterService) {
                 return rosterService.getAthletes()
             }
         }

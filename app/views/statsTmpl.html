@@ -4,7 +4,7 @@
 <!--FILTER RESULTS-->
 <div class="stats_page">
     <div class="stats_page_content">
-        <input type="radio" class="radio" ng-model="filterTeamRoster" value="Boy"/>Boys <input type="radio" class="radio" ng-model="filterTeamRoster" value="Girl"/>Girls<br><br>
+        <input type="radio" class="radio" ng-model="filterTeamRoster" value="Boy"/>Boys <input type="radio" class="radio" ng-model="filterTeamRoster" value="Girl"/>Girls <input type="radio" class="radio" ng-model="filterTeamRoster" value=""/>All<br><br>
         <div class="roster_list" ng-repeat="athlete in athletes | orderBy: ['lastName', 'firstName'] | filter: filterTeamRoster">
             <div ng-click="selectAthlete(athlete)">
                 {{athlete.lastName}}, {{athlete.firstName}}
